@@ -1,0 +1,43 @@
+# Python / Poetry
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.swp
+*.swo
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+*.log
+
+# Poetry
+.poetry/
+dist/
+build/
+
+# Virtualenv
+.env/
+.venv/
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local env files
+.env
+.env.local
+.env.dev
+.env.prod
+
+# Code dump
+project_source_dump.txt
