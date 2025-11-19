@@ -11,7 +11,11 @@
       <div class="site-header__inner">
         <div class="site-header__top">
           <a href="/" class="brand">
-            <span class="brand__logo">лого</span>
+            <img
+              src="{% static 'css/img/coffee_icon.png' %}"
+              alt="Coffee Guide"
+              class="brand__image"
+            >
           </a>
 
           <form action="#" method="get" class="search">
@@ -29,12 +33,19 @@
             <a href="#" class="nav-button nav-button--primary">Войти</a>
           </div>
         </div>
-
         <div class="site-header__bottom">
-          <button class="filter-pill filter-pill--active">Открыто сейчас</button>
-          <button class="filter-pill">Рейтинг 4+</button>
-          <button class="filter-pill">Wi-Fi</button>
-          <button class="filter-pill">$$</button>
+         <button type="button" class="filter-pill filter-pill--active">
+            Открыто сейчас
+          </button>
+          <button type="button" class="filter-pill">
+            Рейтинг 4+
+          </button>
+          <button type="button" class="filter-pill">
+            Wi-Fi
+          </button>
+          <button type="button" class="filter-pill">
+            $$
+          </button>
         </div>
       </div>
     </header>

@@ -32,6 +32,8 @@ a {
 .site-footer__inner {
   max-width: var(--layout-width);
   margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 /* ----------------------- */
@@ -44,7 +46,8 @@ a {
 }
 
 .site-header__inner {
-  padding: 12px 16px 10px;
+  padding-top: 12px;
+  padding-bottom: 10px;
 }
 
 .site-header__top {
@@ -62,8 +65,10 @@ a {
   color: var(--color-text-main);
 }
 
-.brand__logo {
-  padding-right: 8px;
+.brand__image {
+  display: block;
+  height: 32px;
+  width: auto;
 }
 
 .search {
@@ -79,7 +84,6 @@ a {
   background-color: #ffffff;
 }
 
-
 .site-header__actions {
   display: flex;
   align-items: center;
@@ -94,12 +98,30 @@ a {
   font-size: 14px;
   text-decoration: none;
   color: var(--color-text-main);
+  cursor: pointer;
+  transition:
+  background-color 0.15s ease,
+  color 0.15s ease,
+  box-shadow 0.15s ease,
+  transform 0.05s ease;
+}
+
+.nav-button:hover {
+  background-color: #f3ebe4;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .nav-button--primary {
   background-color: var(--color-text-main);
   border-color: var(--color-text-main);
   color: #ffffff;
+}
+
+.nav-button--primary:hover {
+  background-color: #2c1a10;
+  border-color: #2c1a10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
 }
 
 .site-header__bottom {
@@ -115,6 +137,11 @@ a {
   border: 1px solid rgba(0, 0, 0, 0.14);
   background-color: #ffffff;
   font-size: 13px;
+  cursor: pointer;
+}
+
+.filter-pill:hover {
+  background-color: #f3ebe4;
 }
 
 .filter-pill--active {
@@ -128,7 +155,7 @@ a {
 /* ----------------------- */
 
 .site-main {
-  padding: 24px 16px 40px;
+  padding: 24px 0 40px;
   background-color: var(--color-stripe-bg);
 }
 
@@ -204,7 +231,8 @@ a {
 }
 
 .site-footer__inner {
-  padding: 10px 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
