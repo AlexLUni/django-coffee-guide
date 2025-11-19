@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Coffee Guide{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <div class="site-header__top">
+          <a href="/" class="brand">
+            <span class="brand__logo">лого</span>
+          </a>
+
+          <form action="#" method="get" class="search">
+            <input
+              type="text"
+              name="q"
+              class="search__input"
+              placeholder='Название, район или "капучино в центре"'
+            >
+          </form>
+
+          <div class="site-header__actions">
+            <a href="#" class="nav-button">Подборки</a>
+            <a href="#" class="nav-button">Избранное</a>
+            <a href="#" class="nav-button nav-button--primary">Войти</a>
+          </div>
+        </div>
+
+        <div class="site-header__bottom">
+          <button class="filter-pill filter-pill--active">Открыто сейчас</button>
+          <button class="filter-pill">Рейтинг 4+</button>
+          <button class="filter-pill">Wi-Fi</button>
+          <button class="filter-pill">$$</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="site-main__inner">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__left">
+          <a href="#" class="footer-link">О проекте</a>
+        </div>
+        <div class="site-footer__right">
+          Город: <span class="footer-city">Ваш город</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

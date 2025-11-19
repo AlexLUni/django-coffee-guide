@@ -1,0 +1,224 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --layout-width: 1160px;
+
+  --color-page-bg: #f4ebe3;       /* общий фон */
+  --color-stripe-bg: #f8f1ea;     /* фон основной полосы/контента */
+  --color-card-bg: #ffffff;       /* карточки и элементы поверх */
+  --color-header-bg: #ffffff;     /* фон хедера */
+  --color-footer-bg: #f0e6dd;     /* фон подвала */
+  --color-text-main: #3a2618;     /* основной текст (шоколадный) */
+  --color-text-muted: #7a6a5b;    /* подписи, вторичный текст */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--color-page-bg);
+  color: var(--color-text-main);
+}
+
+a {
+  color: inherit;
+}
+
+.site-header__inner,
+.site-main__inner,
+.site-footer__inner {
+  max-width: var(--layout-width);
+  margin: 0 auto;
+}
+
+/* ----------------------- */
+/*     ШАПКА (HEADER)      */
+/* ----------------------- */
+
+.site-header {
+  background-color: var(--color-header-bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.site-header__inner {
+  padding: 12px 16px 10px;
+}
+
+.site-header__top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-text-main);
+}
+
+.brand__logo {
+  padding-right: 8px;
+}
+
+.search {
+  flex: 1;
+}
+
+.search__input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  font-size: 14px;
+  background-color: #ffffff;
+}
+
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--color-text-main);
+}
+
+.nav-button--primary {
+  background-color: var(--color-text-main);
+  border-color: var(--color-text-main);
+  color: #ffffff;
+}
+
+.site-header__bottom {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background-color: #ffffff;
+  font-size: 13px;
+}
+
+.filter-pill--active {
+  background-color: var(--color-text-main);
+  border-color: var(--color-text-main);
+  color: #ffffff;
+}
+
+/* ----------------------- */
+/*     ОСНОВНОЙ КОНТЕНТ    */
+/* ----------------------- */
+
+.site-main {
+  padding: 24px 16px 40px;
+  background-color: var(--color-stripe-bg);
+}
+
+.hero {
+  margin-bottom: 24px;
+}
+
+.hero__title {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.hero__subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  max-width: 520px;
+}
+
+.section {
+  margin-top: 24px;
+}
+
+.section__title {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+/* ----------------------- */
+/*     СЕТКА КАРТОЧЕК      */
+/* ----------------------- */
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card {
+  background-color: var(--color-card-bg);
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1 1 260px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card__title {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.card__tagline {
+  margin: 0 0 8px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.card__meta,
+.card__details {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+/* ----------------------- */
+/*         ФУТЕР           */
+/* ----------------------- */
+
+.site-footer {
+  background-color: var(--color-footer-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.site-footer__inner {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: var(--color-text-main);
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-city {
+  font-weight: 500;
+}

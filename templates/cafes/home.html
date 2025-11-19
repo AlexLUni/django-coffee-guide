@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Гид по кофейням — главная{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <div class="hero__text">
+      <h1 class="hero__title">Где выпить хороший кофе в городе?</h1>
+      <p class="hero__subtitle">
+        «Гид по кофейням» помогает выбрать место по настроению: от
+        уютных спешелти-точек до сетевых кофеен у дома.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">Популярные кофейни</h2>
+    <div class="card-grid">
+      {% for cafe in cafes %}
+        <article class="card">
+          <h3 class="card__title">{{ cafe.name }}</h3>
+          <p class="card__tagline">{{ cafe.tagline }}</p>
+          <p class="card__meta">
+            {{ cafe.address }} • {{ cafe.city }}
+          </p>
+          <p class="card__details">
+            Средний чек: {{ cafe.average_bill }} ₽ · Формат: {{ cafe.format }}
+          </p>
+        </article>
+      {% empty %}
+        <p>Пока нет данных о кофейнях.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}
