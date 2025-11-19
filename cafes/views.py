@@ -3,34 +3,52 @@ from django.shortcuts import render
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    cafes = [
+    """
+    Главная страница: поиск, фильтры, несколько карточек кафе.
+    """
+    example_cafes = [
         {
-            "name": "Brew & Chill",
-            "tagline": "Спешелти-кофе и тихая музыка.",
-            "city": "Москва",
-            "address": "ул. Примерная, 10",
-            "average_bill": 350,
-            "format": "спешелти",
+            "name": "Дрип & Дрифт",
+            "tagline": "Спешиалти-кофейня рядом с парком",
+            "area": "Центр",
+            "features": "V60, фильтр, десерты",
         },
         {
-            "name": "City Coffee",
-            "tagline": "Забегай по пути на работу.",
-            "city": "Москва",
-            "address": "пр-т Центральный, 5",
-            "average_bill": 250,
-            "format": "to go",
+            "name": "Сова и Зёрна",
+            "tagline": "Поздно открыта, тихо и с розетками",
+            "area": "Юг",
+            "features": "Wi-Fi, розетки, посадка у окна",
         },
         {
-            "name": "Латте & Книги",
-            "tagline": "Кофе и полки с любимыми книгами.",
-            "city": "Москва",
-            "address": "наб. Речная, 3",
-            "average_bill": 400,
-            "format": "кофейня + коворкинг",
+            "name": "Эспрессо Бар №3",
+            "tagline": "Забежать за шотом по пути",
+            "area": "Север",
+            "features": "Эспрессо, раф, to-go",
         },
     ]
-
     context = {
-        "cafes": cafes,
+        "cafes": example_cafes,
     }
     return render(request, "cafes/home.html", context)
+
+
+def cafe_list(request: HttpRequest) -> HttpResponse:
+    """
+    Страница со списком всех кофеен.
+    """
+    return render(request, "cafes/cafe_list.html")
+
+
+def cafe_detail(request: HttpRequest, slug: str) -> HttpResponse:
+    """
+    Страница конкретной кофейни.
+    """
+    context = {"slug": slug}
+    return render(request, "cafes/cafe_detail.html", context)
+
+
+def about(request: HttpRequest) -> HttpResponse:
+    """
+    Страница «О проекте».
+    """
+    return render(request, "cafes/about.html")
