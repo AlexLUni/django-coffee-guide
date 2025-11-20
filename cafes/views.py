@@ -1,37 +1,42 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, get_object_or_404
 
 from .models import Cafe
 
 
 def home(request: HttpRequest) -> HttpResponse:
-    """
-    Главная: показываем несколько кофеен из базы.
-    """
-    cafes = Cafe.objects.all().order_by("-rating", "name")[:12]
-    context = {"cafes": cafes}
-    return render(request, "cafes/home.html", context)
+  """
+  Главная страница: показываем несколько кофеен “поблизости”.
+  """
+  cafes = (
+      Cafe.objects
+      .filter(is_open_now=True)
+      .order_by("-rating", "name")[:6]
+  )
+  context = {"cafes": cafes}
+  return render(request, "cafes/home.html", context)
 
 
 def cafe_list(request: HttpRequest) -> HttpResponse:
     """
     Страница со списком всех кофеен.
     """
-    cafes = Cafe.objects.all().order_by("city", "area", "name")
+    cafes = Cafe.objects.order_by("-rating", "name")
     context = {"cafes": cafes}
     return render(request, "cafes/cafe_list.html", context)
 
 
 def cafe_detail(request: HttpRequest, slug: str) -> HttpResponse:
-    """
-    Страница конкретной кофейни.
-    """
-    cafe = get_object_or_404(Cafe, slug=slug)
-    context = {"cafe": cafe}
-    return render(request, "cafes/cafe_detail.html", context)
+  """
+  Страница конкретной кофейни.
+  """
+  cafe = get_object_or_404(Cafe, slug=slug)
+  context = {"cafe": cafe}
+  return render(request, "cafes/cafe_detail.html", context)
 
 
 def about(request: HttpRequest) -> HttpResponse:
+
     """
     Страница «О проекте».
     """

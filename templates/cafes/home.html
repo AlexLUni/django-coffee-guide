@@ -1,3 +1,4 @@
+{# templates/cafes/home.html #}
 {% extends "base.html" %}
 
 {% block title %}Гид по кофейням — главная{% endblock %}
@@ -16,82 +17,10 @@
 
     <div class="card-grid">
       {% for cafe in cafes %}
-        <article class="card card--horizontal">
-          {# Невидимая ссылка-оверлей делает кликабельной всю карточку #}
-          <a
-            href="{% url 'cafes:cafe_detail' cafe.slug %}"
-            class="card__link"
-            aria-label="Открыть страницу кофейни {{ cafe.name }}"
-          ></a>
-
-          <div class="card__thumb-wrapper">
-            {% if cafe.main_image %}
-              <img
-                src="{{ cafe.main_image.url }}"
-                alt="{{ cafe.name }}"
-                class="card__thumb"
-              >
-            {% else %}
-              <div class="card__thumb card__thumb--placeholder"></div>
-            {% endif %}
-          </div>
-
-          <div class="card__body">
-            <div class="card__header-row">
-              <h3 class="card__title">{{ cafe.name }}</h3>
-
-              <div class="card__title-meta">
-                {% if cafe.rating %}
-                  <span class="card__rating">{{ cafe.rating }} ★</span>
-                {% endif %}
-                {% if cafe.price_level %}
-                  <span class="card__price">{{ cafe.price_level }}</span>
-                {% endif %}
-              </div>
-            </div>
-
-            {% if cafe.tagline %}
-              <p class="card__tagline">{{ cafe.tagline }}</p>
-            {% endif %}
-
-            <div class="card__tags">
-              {% if cafe.rating %}
-                <button type="button" class="card__tag">
-                  Рейтинг {{ cafe.rating }}+
-                </button>
-              {% endif %}
-              {% if cafe.has_wifi %}
-                <button type="button" class="card__tag">
-                  Wi-Fi
-                </button>
-              {% endif %}
-              {% if cafe.has_food %}
-                <button type="button" class="card__tag">
-                  Еда/десерты
-                </button>
-              {% endif %}
-            </div>
-
-            <div class="card__footer-row">
-              <p class="card__meta">
-                {{ cafe.address }}
-                {% if cafe.is_open_now %} • Открыто сейчас{% endif %}
-              </p>
-
-              <button
-                type="button"
-                class="card__favorite"
-                aria-label="Добавить в избранное"
-              >
-                ★
-              </button>
-            </div>
-          </div>
-        </article>
+        {% include "cafes/partials/cafe_card.html" with cafe=cafe %}
       {% empty %}
         <p>Пока нет заведений в этой подборке.</p>
       {% endfor %}
     </div>
   </section>
-
 {% endblock %}
