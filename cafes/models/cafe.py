@@ -14,6 +14,13 @@ class Cafe(models.Model):
         unique=True,
         help_text="Короткое имя в URL, латиница, дефисы. Например: drip-and-drift.",
     )
+    main_image = models.ImageField(
+        verbose_name="Основное фото",
+        upload_to="cafes/main/",
+        blank=True,
+        null=True,
+        help_text="Фото, которое будет на карточке и вверху страницы кофейни.",
+    )
     name = models.CharField(
         verbose_name="Название кофейни",
         max_length=120,
@@ -22,6 +29,11 @@ class Cafe(models.Model):
         verbose_name="Короткое описание",
         max_length=200,
         blank=True,
+    )
+    description = models.TextField(
+        verbose_name="Описание",
+        blank=True,
+        help_text="Пара абзацев о месте: атмосфера, формат, для кого.",
     )
     city = models.CharField(
         verbose_name="Город",

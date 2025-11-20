@@ -1,3 +1,7 @@
+/* ===================================== */
+/* 1. RESET + ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ      */
+/* ===================================== */
+
 *,
 *::before,
 *::after {
@@ -7,13 +11,13 @@
 :root {
   --layout-width: 1160px;
 
-  --color-page-bg: #f4ebe3;       /* общий фон */
-  --color-stripe-bg: #f8f1ea;     /* фон основной полосы/контента */
-  --color-card-bg: #ffffff;       /* карточки и элементы поверх */
-  --color-header-bg: #ffffff;     /* фон хедера */
-  --color-footer-bg: #f0e6dd;     /* фон подвала */
-  --color-text-main: #3a2618;     /* основной текст (шоколадный) */
-  --color-text-muted: #7a6a5b;    /* подписи, вторичный текст */
+  --color-page-bg: #f4ebe3;
+  --color-stripe-bg: #f8f1ea;
+  --color-card-bg: #ffffff;
+  --color-header-bg: #ffffff;
+  --color-footer-bg: #f0e6dd;
+  --color-text-main: #3a2618;
+  --color-text-muted: #7a6a5b;
 }
 
 body {
@@ -25,20 +29,27 @@ body {
 
 a {
   color: inherit;
+  text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Общие контейнеры для header / main / footer */
 .site-header__inner,
 .site-main__inner,
 .site-footer__inner {
   max-width: var(--layout-width);
   margin: 0 auto;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-inline: 16px;
 }
 
-/* ----------------------- */
-/*     ШАПКА (HEADER)      */
-/* ----------------------- */
+/* ===================================== */
+/* 2. ШАПКА (HEADER)                     */
+/* ===================================== */
 
 .site-header {
   background-color: var(--color-header-bg);
@@ -46,8 +57,7 @@ a {
 }
 
 .site-header__inner {
-  padding-top: 12px;
-  padding-bottom: 10px;
+  padding-block: 12px 10px;
 }
 
 .site-header__top {
@@ -59,14 +69,12 @@ a {
 .brand {
   display: flex;
   align-items: center;
-  text-decoration: none;
+  gap: 8px;
   font-weight: 700;
   font-size: 18px;
-  color: var(--color-text-main);
 }
 
 .brand__image {
-  display: block;
   height: 32px;
   width: auto;
 }
@@ -96,14 +104,12 @@ a {
   border: 1px solid rgba(0, 0, 0, 0.16);
   background-color: #ffffff;
   font-size: 14px;
-  text-decoration: none;
-  color: var(--color-text-main);
   cursor: pointer;
   transition:
-  background-color 0.15s ease,
-  color 0.15s ease,
-  box-shadow 0.15s ease,
-  transform 0.05s ease;
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.05s ease;
 }
 
 .nav-button:hover {
@@ -150,12 +156,12 @@ a {
   color: #ffffff;
 }
 
-/* ----------------------- */
-/*     ОСНОВНОЙ КОНТЕНТ    */
-/* ----------------------- */
+/* ===================================== */
+/* 3. ОСНОВНОЙ КОНТЕНТ                   */
+/* ===================================== */
 
 .site-main {
-  padding: 24px 0 40px;
+  padding-block: 24px 40px;
   background-color: var(--color-stripe-bg);
 }
 
@@ -183,22 +189,37 @@ a {
   font-size: 20px;
 }
 
-/* ----------------------- */
-/*     СЕТКА КАРТОЧЕК      */
-/* ----------------------- */
+/* ===================================== */
+/* 4. ГЛАВНАЯ: СЕТКА КАРТОЧЕК            */
+/* ===================================== */
 
+/* ТРИ КАРТОЧКИ В РЯД */
 .card-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
 }
 
 .card {
   background-color: var(--color-card-bg);
   border-radius: 12px;
-  padding: 16px;
-  flex: 1 1 260px;
+  padding: 12px 12px 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.card__image-wrapper {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  aspect-ratio: 4 / 3;
+}
+
+.card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card__title {
@@ -208,8 +229,8 @@ a {
 
 .card__tagline {
   margin: 0 0 8px;
-  color: var(--color-text-muted);
   font-size: 14px;
+  color: var(--color-text-muted);
 }
 
 .card__meta,
@@ -219,9 +240,78 @@ a {
   color: var(--color-text-muted);
 }
 
-/* ----------------------- */
-/*         ФУТЕР           */
-/* ----------------------- */
+/* ===================================== */
+/* 5. ДЕТАЛЬНАЯ СТРАНИЦА КОФЕЙНИ         */
+/* ===================================== */
+
+.cafe-hero {
+  max-width: var(--layout-width);
+  margin: 24px auto 32px;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.cafe-hero__image-wrapper {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  min-height: 260px;
+  max-height: 360px;
+}
+
+.cafe-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cafe-hero__info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cafe-hero__title {
+  margin: 0;
+  font-size: 26px;
+}
+
+.cafe-hero__tagline {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.cafe-hero__meta {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* Галерея дополнительных фото */
+.cafe-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.cafe-gallery__item {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+
+.cafe-gallery__image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* ===================================== */
+/* 6. ФУТЕР                              */
+/* ===================================== */
 
 .site-footer {
   background-color: var(--color-footer-bg);
@@ -231,15 +321,13 @@ a {
 }
 
 .site-footer__inner {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-block: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .footer-link {
-  text-decoration: none;
   color: var(--color-text-main);
 }
 
@@ -249,4 +337,30 @@ a {
 
 .footer-city {
   font-weight: 500;
+}
+
+/* ===================================== */
+/* 7. АДАПТИВ                            */
+/* ===================================== */
+
+@media (max-width: 1000px) {
+  .cafe-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .site-header__top {
+    flex-wrap: wrap;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 }

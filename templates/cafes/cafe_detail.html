@@ -1,11 +1,58 @@
 {% extends "base.html" %}
 
-{% block title %}Кофейня — Гид по кофейням{% endblock %}
+{% block title %}{{ cafe.name }} — Гид по кофейням{% endblock %}
 
 {% block content %}
-  <section class="section">
-    <h1 class="section__title">Страница кофейни</h1>
-    <p>Здесь позже будет подробная информация о кофейне.</p>
-    <p><strong>Slug в URL:</strong> {{ slug }}</p>
+  <section class="cafe-hero">
+    {% if cafe.main_image %}
+      <figure class="cafe-hero__image-wrapper">
+        <img
+          src="{{ cafe.main_image.url }}"
+          alt="{{ cafe.name }}"
+          class="cafe-hero__image"
+        >
+      </figure>
+    {% endif %}
+
+    <div class="cafe-hero__info">
+      <h1 class="cafe-hero__title">{{ cafe.name }}</h1>
+      {% if cafe.tagline %}
+        <p class="cafe-hero__tagline">{{ cafe.tagline }}</p>
+      {% endif %}
+
+      <p class="cafe-hero__meta">
+        {{ cafe.city }}, {{ cafe.address }}
+        {% if cafe.area %} • район: {{ cafe.area }}{% endif %}
+      </p>
+
+      <p class="cafe-hero__meta">
+        Цена: {{ cafe.get_price_level_display }}
+        {% if cafe.rating %} • рейтинг: {{ cafe.rating }}★{% endif %}
+      </p>
+    </div>
   </section>
+
+  {% if cafe.description %}
+    <section class="section">
+      <h2 class="section__title">О кофейне</h2>
+      <p>{{ cafe.description|linebreaksbr }}</p>
+    </section>
+  {% endif %}
+
+  {% if cafe.extra_images.all %}
+    <section class="section">
+      <h2 class="section__title">Фотографии</h2>
+      <div class="cafe-gallery">
+        {% for image in cafe.extra_images.all %}
+          <figure class="cafe-gallery__item">
+            <img
+              src="{{ image.image.url }}"
+              alt="{{ image.caption }}"
+              class="cafe-gallery__image"
+            >
+          </figure>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 {% endblock %}

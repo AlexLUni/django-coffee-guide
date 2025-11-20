@@ -17,9 +17,21 @@
     <div class="card-grid">
       {% for cafe in cafes %}
         <article class="card">
+          {% if cafe.main_image %}
+            <div class="card__image-wrapper">
+              <img
+                src="{{ cafe.main_image.url }}"
+                alt="{{ cafe.name }}"
+                class="card__image"
+              >
+            </div>
+          {% endif %}
+
           <h3 class="card__title">{{ cafe.name }}</h3>
           <p class="card__tagline">{{ cafe.tagline }}</p>
-          <p class="card__meta">Район: {{ cafe.area }}</p>
+          <p class="card__meta">
+            Район: {{ cafe.area }}{% if cafe.city %}, {{ cafe.city }}{% endif %}
+          </p>
           <p class="card__details">{{ cafe.features }}</p>
         </article>
       {% empty %}
