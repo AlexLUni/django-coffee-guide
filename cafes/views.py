@@ -6,54 +6,50 @@ from cafes.models import Cafe
 
 
 def home(request: HttpRequest) -> HttpResponse:
-  """
-  Главная страница: поиск и базовые фильтры по кофейням.
-  """
-  cafes_qs = Cafe.objects.all()
+    """
+    Главная страница: поиск и несколько карточек.
+    """
+    cafes = Cafe.objects.order_by("-rating", "name")[:6]
+    context = {"cafes": cafes}
+    return render(request, "cafes/home.html", context)
 
-  # --- Поиск по строке q ---
-  query = request.GET.get("q", "").strip()
-  if query:
-      cafes_qs = cafes_qs.filter(
-          Q(name__icontains=query)
-          | Q(tagline__icontains=query)
-          | Q(address__icontains=query)
-          | Q(features__icontains=query)
-          | Q(area__icontains=query)
-      )
-
-  # --- Фильтр "Открыто сейчас" ---
-  if request.GET.get("open_now") == "1":
-      cafes_qs = cafes_qs.filter(is_open_now=True)
-
-  # --- Фильтр "Рейтинг 4+" ---
-  if request.GET.get("rating_gte") == "4":
-      cafes_qs = cafes_qs.filter(rating__gte=4.0)
-
-  # --- Фильтр "Wi-Fi" ---
-  if request.GET.get("wifi") == "1":
-      cafes_qs = cafes_qs.filter(has_wifi=True)
-
-  # --- Фильтр по уровню цен ---
-  price_level = request.GET.get("price_level")
-  if price_level in {"$", "$$", "$$$"}:
-      cafes_qs = cafes_qs.filter(price_level=price_level)
-
-  cafes = cafes_qs.order_by("-rating", "name")[:30]
-
-  context = {
-      "cafes": cafes,
-      "query": query,
-  }
-  return render(request, "cafes/home.html", context)
 
 
 def cafe_list(request: HttpRequest) -> HttpResponse:
     """
-    Страница со списком всех кофеен.
+    Страница со списком кофеен, а также результатом поиска.
     """
-    cafes = Cafe.objects.order_by("-rating", "name")
-    context = {"cafes": cafes}
+    cafes_qs = Cafe.objects.all()
+
+    query = request.GET.get("q", "").strip()
+    if query:
+        cafes_qs = cafes_qs.filter(
+            Q(name__icontains=query)
+            | Q(tagline__icontains=query)
+            | Q(address__icontains=query)
+            | Q(features__icontains=query)
+            | Q(area__icontains=query)
+        )
+
+    if request.GET.get("open_now") == "1":
+        cafes_qs = cafes_qs.filter(is_open_now=True)
+
+    if request.GET.get("min_rating") == "4":
+        cafes_qs = cafes_qs.filter(rating__gte=4.0)
+
+    if request.GET.get("wifi") == "1":
+        cafes_qs = cafes_qs.filter(has_wifi=True)
+
+    price = request.GET.get("price")
+    if price in {"$", "$$", "$$$"}:
+        cafes_qs = cafes_qs.filter(price_level=price)
+
+    cafes = cafes_qs.order_by("-rating", "name")
+
+    context = {
+        "cafes": cafes,
+        "query": query,
+    }
     return render(request, "cafes/cafe_list.html", context)
 
 

@@ -13,18 +13,13 @@
           <a href="{% url 'cafes:home' %}" class="brand">
             <img
               src="{% static 'css/img/coffee_icon.png' %}"
-              alt="Coffee Shop Guide"
+              alt="Coffee Guide"
               class="brand__image"
             >
-            Гид по кофейням
+            <span>Гид по кофейням</span>
           </a>
 
-          {# Поиск — GET-запрос на главную #}
-          <form
-            action="{% url 'cafes:home' %}"
-            method="get"
-            class="search"
-          >
+          <form action="{% url 'cafes:cafe_list' %}" method="get" class="search">
             <input
               type="text"
               name="q"
@@ -36,86 +31,44 @@
 
           <div class="site-header__actions">
             <a href="{% url 'cafes:cafe_list' %}" class="nav-button">
-              Подборки
+              Все кофейни
             </a>
-            <a href="#" class="nav-button">Избранное</a>
+            <a href="#" class="nav-button">Подборки</a>
             <a href="#" class="nav-button nav-button--primary">Войти</a>
           </div>
         </div>
 
-        {# Нижняя полоска — фильтры #}
         <div class="site-header__bottom">
-          {# Открыто сейчас #}
-          {% if request.GET.open_now == "1" %}
-            <a
-              href="{% url 'cafes:home' %}?open_now=1"
-              class="filter-pill filter-pill--active"
-            >
-              Открыто сейчас
-            </a>
-          {% else %}
-            <a
-              href="{% url 'cafes:home' %}?open_now=1"
-              class="filter-pill"
-            >
-              Открыто сейчас
-            </a>
-          {% endif %}
+          <a
+            href="{% url 'cafes:cafe_list' %}?open_now=1"
+            class="filter-pill{% if request.GET.open_now == '1' %} filter-pill--active{% endif %}"
+          >
+            Открыто сейчас
+          </a>
 
-          {# Рейтинг 4+ #}
-          {% if request.GET.rating_gte == "4" %}
-            <a
-              href="{% url 'cafes:home' %}?rating_gte=4"
-              class="filter-pill filter-pill--active"
-            >
-              Рейтинг 4+
-            </a>
-          {% else %}
-            <a
-              href="{% url 'cafes:home' %}?rating_gte=4"
-              class="filter-pill"
-            >
-              Рейтинг 4+
-            </a>
-          {% endif %}
+          <a
+            href="{% url 'cafes:cafe_list' %}?min_rating=4"
+            class="filter-pill{% if request.GET.min_rating == '4' %} filter-pill--active{% endif %}"
+          >
+            Рейтинг 4+
+          </a>
 
-          {# Wi-Fi #}
-          {% if request.GET.wifi == "1" %}
-            <a
-              href="{% url 'cafes:home' %}?wifi=1"
-              class="filter-pill filter-pill--active"
-            >
-              Wi-Fi
-            </a>
-          {% else %}
-            <a
-              href="{% url 'cafes:home' %}?wifi=1"
-              class="filter-pill"
-            >
-              Wi-Fi
-            </a>
-          {% endif %}
+          <a
+            href="{% url 'cafes:cafe_list' %}?wifi=1"
+            class="filter-pill{% if request.GET.wifi == '1' %} filter-pill--active{% endif %}"
+          >
+            Wi-Fi
+          </a>
 
-          {# $$ #}
-          {% if request.GET.price_level == "$$" %}
-            <a
-              href="{% url 'cafes:home' %}?price_level=$$"
-              class="filter-pill filter-pill--active"
-            >
-              $$
-            </a>
-          {% else %}
-            <a
-              href="{% url 'cafes:home' %}?price_level=$$"
-              class="filter-pill"
-            >
-              $$
-            </a>
-          {% endif %}
+          <a
+            href="{% url 'cafes:cafe_list' %}?price=$$"
+            class="filter-pill{% if request.GET.price == '$$' %} filter-pill--active{% endif %}"
+          >
+            $$
+          </a>
         </div>
       </div>
     </header>
-
     <main class="site-main">
       <div class="site-main__inner">
         {% block content %}{% endblock %}
