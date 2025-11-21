@@ -10,42 +10,108 @@
     <header class="site-header">
       <div class="site-header__inner">
         <div class="site-header__top">
-          <a href="/" class="brand">
+          <a href="{% url 'cafes:home' %}" class="brand">
             <img
               src="{% static 'css/img/coffee_icon.png' %}"
-              alt="Coffee Guide"
+              alt="Coffee Shop Guide"
               class="brand__image"
             >
+            Гид по кофейням
           </a>
 
-          <form action="#" method="get" class="search">
+          {# Поиск — GET-запрос на главную #}
+          <form
+            action="{% url 'cafes:home' %}"
+            method="get"
+            class="search"
+          >
             <input
               type="text"
               name="q"
               class="search__input"
               placeholder='Название, район или "капучино в центре"'
+              value="{{ request.GET.q|default_if_none:'' }}"
             >
           </form>
 
           <div class="site-header__actions">
-            <a href="{% url 'cafes:cafe_list' %}" class="nav-button">Подборки</a>
+            <a href="{% url 'cafes:cafe_list' %}" class="nav-button">
+              Подборки
+            </a>
             <a href="#" class="nav-button">Избранное</a>
             <a href="#" class="nav-button nav-button--primary">Войти</a>
           </div>
         </div>
+
+        {# Нижняя полоска — фильтры #}
         <div class="site-header__bottom">
-         <button type="button" class="filter-pill filter-pill--active">
-            Открыто сейчас
-          </button>
-          <button type="button" class="filter-pill">
-            Рейтинг 4+
-          </button>
-          <button type="button" class="filter-pill">
-            Wi-Fi
-          </button>
-          <button type="button" class="filter-pill">
-            $$
-          </button>
+          {# Открыто сейчас #}
+          {% if request.GET.open_now == "1" %}
+            <a
+              href="{% url 'cafes:home' %}?open_now=1"
+              class="filter-pill filter-pill--active"
+            >
+              Открыто сейчас
+            </a>
+          {% else %}
+            <a
+              href="{% url 'cafes:home' %}?open_now=1"
+              class="filter-pill"
+            >
+              Открыто сейчас
+            </a>
+          {% endif %}
+
+          {# Рейтинг 4+ #}
+          {% if request.GET.rating_gte == "4" %}
+            <a
+              href="{% url 'cafes:home' %}?rating_gte=4"
+              class="filter-pill filter-pill--active"
+            >
+              Рейтинг 4+
+            </a>
+          {% else %}
+            <a
+              href="{% url 'cafes:home' %}?rating_gte=4"
+              class="filter-pill"
+            >
+              Рейтинг 4+
+            </a>
+          {% endif %}
+
+          {# Wi-Fi #}
+          {% if request.GET.wifi == "1" %}
+            <a
+              href="{% url 'cafes:home' %}?wifi=1"
+              class="filter-pill filter-pill--active"
+            >
+              Wi-Fi
+            </a>
+          {% else %}
+            <a
+              href="{% url 'cafes:home' %}?wifi=1"
+              class="filter-pill"
+            >
+              Wi-Fi
+            </a>
+          {% endif %}
+
+          {# $$ #}
+          {% if request.GET.price_level == "$$" %}
+            <a
+              href="{% url 'cafes:home' %}?price_level=$$"
+              class="filter-pill filter-pill--active"
+            >
+              $$
+            </a>
+          {% else %}
+            <a
+              href="{% url 'cafes:home' %}?price_level=$$"
+              class="filter-pill"
+            >
+              $$
+            </a>
+          {% endif %}
         </div>
       </div>
     </header>
@@ -59,7 +125,7 @@
     <footer class="site-footer">
       <div class="site-footer__inner">
         <div class="site-footer__left">
-          <a href="#" class="footer-link">О проекте</a>
+          <a href="{% url 'cafes:about' %}" class="footer-link">О проекте</a>
         </div>
         <div class="site-footer__right">
           Город: <span class="footer-city">Ваш город</span>
