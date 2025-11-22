@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Страница не найдена — Гид по кофейням{% endblock %}
+
+{% block content %}
+  <section class="section">
+    <h1 class="section__title">Страница не найдена</h1>
+    <p>Кажется, такой страницы нет. Возможно, ссылка устарела или адрес введён с ошибкой.</p>
+    <p>
+      <a href="{% url 'cafes:home' %}">На главную</a>
+    </p>
+  </section>
+{% endblock %}

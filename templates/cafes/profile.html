@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль — Гид по кофейням{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <h1 class="hero__title">Профиль</h1>
+    <p class="hero__subtitle">
+      Здесь ваши избранные кофейни и оставленные отзывы.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">Избранные кофейни</h2>
+    {% if favorites %}
+      <div class="card-grid">
+        {% for favorite in favorites %}
+          {% with cafe=favorite.cafe %}
+            {% include "cafes/partials/cafe_card.html" %}
+          {% endwith %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>У вас пока нет избранных кофеен.</p>
+    {% endif %}
+  </section>
+
+  <section class="section">
+    <h2 class="section__title">Мои отзывы</h2>
+    {% if reviews %}
+      <ul class="review-list">
+        {% for review in reviews %}
+          <li class="review-list__item">
+            <p class="review-list__meta">
+              <a href="{% url 'cafes:cafe_detail' review.cafe.slug %}">
+                {{ review.cafe.name }}
+              </a>
+              • {{ review.created_at|date:"d.m.Y" }}
+              • {{ review.rating }}★
+            </p>
+            <p class="review-list__text">{{ review.text }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Вы ещё не оставляли отзывов.</p>
+    {% endif %}
+  </section>
+{% endblock %}

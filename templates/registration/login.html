@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Вход — Гид по кофейням{% endblock %}
+
+{% block content %}
+  <section class="section auth-section">
+    <div class="auth-card">
+      <h1 class="section__title">Вход</h1>
+
+      {% if form.non_field_errors %}
+        {{ form.non_field_errors }}
+      {% endif %}
+
+      <form method="post" class="auth-form">
+        {% csrf_token %}
+
+        <div class="auth-form__field">
+          <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+
+        <div class="auth-form__field">
+          <label for="{{ form.password.id_for_label }}">Пароль</label>
+          {{ form.password }}
+          {{ form.password.errors }}
+        </div>
+
+        <button type="submit" class="nav-button nav-button--primary">
+          Войти
+        </button>
+      </form>
+
+      <p class="auth-form__footer">
+        Нет аккаунта?
+        <a href="{% url 'cafes:signup' %}">Зарегистрироваться</a>
+      </p>
+    </div>
+  </section>
+{% endblock %}

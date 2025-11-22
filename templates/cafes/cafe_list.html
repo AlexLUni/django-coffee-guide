@@ -15,10 +15,16 @@
 
     <div class="card-grid">
       {% for cafe in cafes %}
-        {# используем ту же карточку, что и на главной #}
         {% include "cafes/partials/cafe_card.html" %}
       {% empty %}
-        <p>Пока нет заведений в базе.</p>
+        {% if has_filters %}
+          <p>По заданным фильтрам ничего не найдено.</p>
+          <p>
+            <a href="{% url 'cafes:cafe_list' %}">Сбросить фильтры</a>
+          </p>
+        {% else %}
+          <p>Пока нет заведений в базе.</p>
+        {% endif %}
       {% endfor %}
     </div>
   </section>

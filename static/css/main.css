@@ -98,6 +98,10 @@ img {
   gap: 8px;
 }
 
+.site-header__actions form {
+  margin: 0;
+}
+
 .nav-button {
   padding: 8px 14px;
   border-radius: 6px;
@@ -187,6 +191,50 @@ img {
 .section__title {
   margin: 0 0 16px;
   font-size: 20px;
+}
+
+/* ===================================== */
+/* AUTH: ЛОГИН / РЕГИСТРАЦИЯ             */
+/* ===================================== */
+
+.auth-section {
+  max-width: 420px;
+  margin: 40px auto 0;
+}
+
+.auth-card {
+  background-color: var(--color-card-bg);
+  border-radius: 12px;
+  padding: 20px 24px 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.auth-form__field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.auth-form__field input[type="text"],
+.auth-form__field input[type="password"] {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.auth-form__footer {
+  margin-top: 16px;
+  font-size: 14px;
 }
 
 /* ===================================== */

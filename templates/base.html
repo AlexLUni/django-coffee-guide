@@ -28,13 +28,30 @@
               value="{{ request.GET.q|default_if_none:'' }}"
             >
           </form>
-
           <div class="site-header__actions">
             <a href="{% url 'cafes:cafe_list' %}" class="nav-button">
               Все кофейни
             </a>
             <a href="#" class="nav-button">Подборки</a>
-            <a href="#" class="nav-button nav-button--primary">Войти</a>
+
+            {% if user.is_authenticated %}
+              <a href="{% url 'cafes:profile' %}" class="nav-button">
+                Профиль
+              </a>
+              <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="nav-button">
+                  Выйти
+                </button>
+              </form>
+            {% else %}
+              <a href="{% url 'login' %}" class="nav-button">
+                Войти
+              </a>
+              <a href="{% url 'cafes:signup' %}" class="nav-button nav-button--primary">
+                Регистрация
+              </a>
+            {% endif %}
           </div>
         </div>
 

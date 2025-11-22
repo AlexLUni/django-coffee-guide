@@ -29,6 +29,27 @@
         Цена: {{ cafe.get_price_level_display }}
         {% if cafe.rating %} • рейтинг: {{ cafe.rating }}★{% endif %}
       </p>
+
+      {% if user.is_authenticated %}
+        <form
+          method="post"
+          action="{% url 'cafes:toggle_favorite' cafe.slug %}"
+        >
+          {% csrf_token %}
+          <button type="submit" class="nav-button">
+            {% if is_favorite %}
+              Убрать из избранного
+            {% else %}
+              В избранное
+            {% endif %}
+          </button>
+        </form>
+      {% else %}
+        <p class="cafe-hero__meta">
+          <a href="{% url 'login' %}?next={{ request.path }}">Войдите</a>,
+          чтобы добавить в избранное.
+        </p>
+      {% endif %}
     </div>
   </section>
 
@@ -39,20 +60,54 @@
     </section>
   {% endif %}
 
-  {% if cafe.extra_images.all %}
-    <section class="section">
-      <h2 class="section__title">Фотографии</h2>
-      <div class="cafe-gallery">
-        {% for image in cafe.extra_images.all %}
-          <figure class="cafe-gallery__item">
-            <img
-              src="{{ image.image.url }}"
-              alt="{{ image.caption }}"
-              class="cafe-gallery__image"
-            >
-          </figure>
+  <section class="section">
+    <h2 class="section__title">Отзывы</h2>
+
+    {% if reviews %}
+      <ul class="review-list">
+        {% for review in reviews %}
+          <li class="review-list__item">
+            <p class="review-list__meta">
+              {{ review.user.username }}
+              • {{ review.created_at|date:"d.m.Y" }}
+              • {{ review.rating }}★
+            </p>
+            <p class="review-list__text">{{ review.text }}</p>
+          </li>
         {% endfor %}
-      </div>
-    </section>
-  {% endif %}
+      </ul>
+    {% else %}
+      <p>Пока нет отзывов. Будьте первым, кто оставит отзыв.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div>
+          <label for="{{ form.rating.id_for_label }}">Оценка (1–5)</label>
+          {{ form.rating }}
+          {{ form.rating.errors }}
+        </div>
+
+        <div>
+          <label for="{{ form.text.id_for_label }}">Отзыв</label>
+          {{ form.text }}
+          {{ form.text.errors }}
+        </div>
+
+        <button type="submit" class="nav-button nav-button--primary">
+          Оставить отзыв
+        </button>
+      </form>
+    {% else %}
+      <p>
+        Чтобы написать отзыв,
+        <a href="{% url 'login' %}?next={{ request.path }}">войдите</a>
+        или
+        <a href="{% url 'cafes:signup' %}?next={{ request.path }}">зарегистрируйтесь</a>.
+      </p>
+    {% endif %}
+  </section>
 {% endblock %}
